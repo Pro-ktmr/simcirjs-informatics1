@@ -2512,5 +2512,6 @@ simcir.$ = function() {
   $s.registerDevice('In', createPortFactory('in') );
   $s.registerDevice('Out', createPortFactory('out') );
   $s.registerDevice('Joint', createJointFactory() );
+  $s.registerDevice('分岐', createJointFactory() );
 
 }(simcir);

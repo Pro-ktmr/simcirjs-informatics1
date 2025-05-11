@@ -1,0 +1,386 @@
+<!doctype html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"></script>
+    <script type="text/javascript" src="simcir.js"></script>
+    <link rel="stylesheet" type="text/css" href="simcir.css" />
+    <script type="text/javascript" src="simcir-basicset.js"></script>
+    <link rel="stylesheet" type="text/css" href="simcir-basicset.css" />
+    <script type="text/javascript" src="simcir-library.js"></script>
+    <script type="text/javascript" src="simcir-informatics1.js"></script>
+    <script type="text/javascript">
+$(function() {
+
+  var $s = simcir;
+
+  var $simcir = $('#mySimcir');
+
+  var setCircuitData = function(data) {
+    $s.setupSimcir($simcir, JSON.parse(data) );
+  };
+
+  // button click events
+  $('#empty').click(function() {
+    setCircuitData(`
+{
+  "width":1500,
+  "height":600,
+  "showToolbox":true,
+  "toolbox":[
+    {"type":"入力(スイッチ)"},
+    {"type":"出力(ランプ)"},
+    {"type":"AND"},
+    {"type":"OR"},
+    {"type":"NOT"},
+    {"type":"分岐"}
+  ]
+}
+    `);
+  });
+
+  $('#and').click(function() {
+    setCircuitData(`
+{
+  "width":1500,
+  "height":600,
+  "showToolbox":true,
+  "toolbox":[
+    {"type":"入力(スイッチ)"},
+    {"type":"出力(ランプ)"},
+    {"type":"AND"},
+    {"type":"OR"},
+    {"type":"NOT"},
+    {"type":"分岐"}
+  ],
+  "devices":[
+    {"type":"入力(スイッチ)","id":"dev0","x":32,"y":32,"label":"入力(スイッチ)1","state":{"on":false}},
+    {"type":"入力(スイッチ)","id":"dev1","x":32,"y":96,"label":"入力(スイッチ)2","state":{"on":false}},
+    {"type":"AND","id":"dev2","x":96,"y":64,"label":"AND"},
+    {"type":"出力(ランプ)","id":"dev3","x":160,"y":64,"label":"出力(ランプ)"}
+  ],
+  "connectors":[
+    {"from":"dev2.in0","to":"dev0.out0"},
+    {"from":"dev2.in1","to":"dev1.out0"},
+    {"from":"dev3.in0","to":"dev2.out0"}
+  ]
+}
+    `);
+  });
+
+  $('#or').click(function() {
+    setCircuitData(`
+{
+  "width":1500,
+  "height":600,
+  "showToolbox":true,
+  "toolbox":[
+    {"type":"入力(スイッチ)"},
+    {"type":"出力(ランプ)"},
+    {"type":"AND"},
+    {"type":"OR"},
+    {"type":"NOT"},
+    {"type":"分岐"}
+  ],
+  "devices":[
+    {"type":"入力(スイッチ)","id":"dev0","x":32,"y":32,"label":"入力(スイッチ)1","state":{"on":false}},
+    {"type":"入力(スイッチ)","id":"dev1","x":32,"y":96,"label":"入力(スイッチ)2","state":{"on":false}},
+    {"type":"OR","id":"dev2","x":96,"y":64,"label":"OR"},
+    {"type":"出力(ランプ)","id":"dev3","x":160,"y":64,"label":"出力(ランプ)"}
+  ],
+  "connectors":[
+    {"from":"dev2.in0","to":"dev0.out0"},
+    {"from":"dev2.in1","to":"dev1.out0"},
+    {"from":"dev3.in0","to":"dev2.out0"}
+  ]
+}
+    `);
+  });
+
+  $('#not').click(function() {
+    setCircuitData(`
+{
+  "width":1500,
+  "height":600,
+  "showToolbox":true,
+  "toolbox":[
+    {"type":"入力(スイッチ)"},
+    {"type":"出力(ランプ)"},
+    {"type":"AND"},
+    {"type":"OR"},
+    {"type":"NOT"},
+    {"type":"分岐"}
+  ],
+  "devices":[
+    {"type":"入力(スイッチ)","id":"dev0","x":32,"y":32,"label":"入力(スイッチ)","state":{"on":false}},
+    {"type":"NOT","id":"dev1","x":96,"y":32,"label":"NOT"},
+    {"type":"出力(ランプ)","id":"dev2","x":160,"y":32,"label":"出力(ランプ)"}
+  ],
+  "connectors":[
+    {"from":"dev1.in0","to":"dev0.out0"},
+    {"from":"dev2.in0","to":"dev1.out0"}
+  ]
+}
+    `);
+  });
+
+  $('#nand1').click(function() {
+    setCircuitData(`
+{
+  "width":1500,
+  "height":600,
+  "showToolbox":true,
+  "toolbox":[
+    {"type":"入力(スイッチ)"},
+    {"type":"出力(ランプ)"},
+    {"type":"AND"},
+    {"type":"OR"},
+    {"type":"NOT"},
+    {"type":"分岐"}
+  ],
+  "devices":[
+    {"type":"入力(スイッチ)","id":"dev0","x":32,"y":32,"label":"入力(スイッチ)1","state":{"on":false}},
+    {"type":"入力(スイッチ)","id":"dev1","x":32,"y":96,"label":"入力(スイッチ)2","state":{"on":false}},
+    {"type":"AND","id":"dev2","x":96,"y":64,"label":"AND"},
+    {"type":"NOT","id":"dev3","x":160,"y":64,"label":"NOT"},
+    {"type":"出力(ランプ)","id":"dev4","x":224,"y":64,"label":"出力(ランプ)"}
+  ],
+  "connectors":[
+    {"from":"dev2.in0","to":"dev0.out0"},
+    {"from":"dev2.in1","to":"dev1.out0"},
+    {"from":"dev3.in0","to":"dev2.out0"},
+    {"from":"dev4.in0","to":"dev3.out0"}
+  ]
+}
+    `);
+  });
+
+  $('#nand2').click(function() {
+    setCircuitData(`
+{
+  "width":1500,
+  "height":600,
+  "showToolbox":true,
+  "toolbox":[
+    {"type":"入力(スイッチ)"},
+    {"type":"出力(ランプ)"},
+    {"type":"AND"},
+    {"type":"OR"},
+    {"type":"NOT"},
+    {"type":"分岐"}
+  ],
+  "devices":[
+    {"type":"入力(スイッチ)","id":"dev0","x":32,"y":32,"label":"入力(スイッチ)1","state":{"on":false}},
+    {"type":"入力(スイッチ)","id":"dev1","x":32,"y":96,"label":"入力(スイッチ)2","state":{"on":false}},
+    {"type":"NOT","id":"dev2","x":96,"y":96,"label":"NOT"},
+    {"type":"NOT","id":"dev3","x":96,"y":32,"label":"NOT"},
+    {"type":"OR","id":"dev4","x":160,"y":64,"label":"OR"},
+    {"type":"出力(ランプ)","id":"dev5","x":224,"y":64,"label":"出力(ランプ)"}
+  ],
+  "connectors":[
+    {"from":"dev2.in0","to":"dev1.out0"},
+    {"from":"dev3.in0","to":"dev0.out0"},
+    {"from":"dev4.in0","to":"dev3.out0"},
+    {"from":"dev4.in1","to":"dev2.out0"},
+    {"from":"dev5.in0","to":"dev4.out0"}
+  ]
+}
+    `);
+  });
+
+
+  $('#halfAdder').click(function() {
+    setCircuitData(`
+{
+  "width":1500,
+  "height":600,
+  "showToolbox":true,
+  "toolbox":[
+    {"type":"入力(スイッチ)"},
+    {"type":"出力(ランプ)"},
+    {"type":"AND"},
+    {"type":"OR"},
+    {"type":"NOT"},
+    {"type":"分岐"}
+  ],
+  "devices":[
+    {"type":"OR","id":"dev0","x":288,"y":448,"label":"OR"},
+    {"type":"AND","id":"dev1","x":288,"y":384,"label":"AND"},
+    {"type":"NOT","id":"dev2","x":336,"y":416,"label":"NOT"},
+    {"type":"AND","id":"dev3","x":376,"y":448,"label":"AND"},
+    {"type":"分岐","id":"dev4","x":256,"y":456,"label":"分岐","state":{"direction":0}},
+    {"type":"分岐","id":"dev5","x":256,"y":392,"label":"分岐","state":{"direction":0}},
+    {"type":"入力(スイッチ)","id":"dev6","x":32,"y":384,"label":"入力A1","state":{"on":false}},
+    {"type":"出力(ランプ)","id":"dev7","x":472,"y":448,"label":"出力1"},
+    {"type":"入力(スイッチ)","id":"dev8","x":192,"y":448,"label":"入力B1","state":{"on":false}},
+    {"type":"出力(ランプ)","id":"dev9","x":472,"y":384,"label":"出力2"}
+  ],
+  "connectors":[
+    {"from":"dev0.in0","to":"dev5.out0"},
+    {"from":"dev0.in1","to":"dev4.out0"},
+    {"from":"dev1.in0","to":"dev5.out0"},
+    {"from":"dev1.in1","to":"dev4.out0"},
+    {"from":"dev2.in0","to":"dev1.out0"},
+    {"from":"dev3.in0","to":"dev2.out0"},
+    {"from":"dev3.in1","to":"dev0.out0"},
+    {"from":"dev4.in0","to":"dev8.out0"},
+    {"from":"dev5.in0","to":"dev6.out0"},
+    {"from":"dev7.in0","to":"dev3.out0"},
+    {"from":"dev9.in0","to":"dev1.out0"}
+  ]
+}
+    `);
+  });
+  
+  $('#fullAdder').click(function() {
+    setCircuitData(`
+{
+  "width":1500,
+  "height":600,
+  "showToolbox":true,
+  "toolbox":[
+    {"type":"入力(スイッチ)"},
+    {"type":"出力(ランプ)"},
+    {"type":"AND"},
+    {"type":"OR"},
+    {"type":"NOT"},
+    {"type":"分岐"}
+  ],
+  "devices":[
+    {"type":"OR","id":"dev0","x":288,"y":448,"label":"OR"},
+    {"type":"AND","id":"dev1","x":288,"y":384,"label":"AND"},
+    {"type":"OR","id":"dev2","x":472,"y":384,"label":"OR"},
+    {"type":"AND","id":"dev3","x":472,"y":320,"label":"AND"},
+    {"type":"分岐","id":"dev4","x":440,"y":392,"label":"分岐","state":{"direction":0}},
+    {"type":"NOT","id":"dev5","x":336,"y":416,"label":"NOT"},
+    {"type":"AND","id":"dev6","x":376,"y":448,"label":"AND"},
+    {"type":"NOT","id":"dev7","x":520,"y":352,"label":"NOT"},
+    {"type":"AND","id":"dev8","x":568,"y":384,"label":"AND"},
+    {"type":"分岐","id":"dev9","x":440,"y":328,"label":"分岐","state":{"direction":0}},
+    {"type":"AND","id":"dev10","x":648,"y":256,"label":"AND"},
+    {"type":"OR","id":"dev11","x":648,"y":320,"label":"OR"},
+    {"type":"NOT","id":"dev12","x":696,"y":288,"label":"NOT"},
+    {"type":"AND","id":"dev13","x":744,"y":320,"label":"AND"},
+    {"type":"分岐","id":"dev14","x":616,"y":328,"label":"分岐","state":{"direction":0}},
+    {"type":"分岐","id":"dev15","x":616,"y":264,"label":"分岐","state":{"direction":0}},
+    {"type":"分岐","id":"dev16","x":848,"y":264,"label":"分岐","state":{"direction":0}},
+    {"type":"分岐","id":"dev17","x":848,"y":192,"label":"分岐","state":{"direction":0}},
+    {"type":"分岐","id":"dev18","x":256,"y":456,"label":"分岐","state":{"direction":0}},
+    {"type":"分岐","id":"dev19","x":256,"y":392,"label":"分岐","state":{"direction":0}},
+    {"type":"AND","id":"dev20","x":880,"y":184,"label":"AND"},
+    {"type":"OR","id":"dev21","x":880,"y":256,"label":"OR"},
+    {"type":"NOT","id":"dev22","x":928,"y":216,"label":"NOT"},
+    {"type":"AND","id":"dev23","x":976,"y":248,"label":"AND"},
+    {"type":"入力(スイッチ)","id":"dev24","x":32,"y":384,"label":"入力A1","state":{"on":false}},
+    {"type":"入力(スイッチ)","id":"dev25","x":32,"y":120,"label":"入力A3","state":{"on":false}},
+    {"type":"入力(スイッチ)","id":"dev26","x":192,"y":320,"label":"入力B2","state":{"on":false}},
+    {"type":"入力(スイッチ)","id":"dev27","x":192,"y":184,"label":"入力B3","state":{"on":false}},
+    {"type":"OR","id":"dev28","x":1056,"y":184,"label":"OR"},
+    {"type":"分岐","id":"dev29","x":1024,"y":192,"label":"分岐","state":{"direction":0}},
+    {"type":"分岐","id":"dev30","x":1024,"y":128,"label":"分岐","state":{"direction":0}},
+    {"type":"NOT","id":"dev31","x":1104,"y":152,"label":"NOT"},
+    {"type":"AND","id":"dev32","x":1056,"y":120,"label":"AND"},
+    {"type":"AND","id":"dev33","x":1152,"y":184,"label":"AND"},
+    {"type":"OR","id":"dev34","x":784,"y":256,"label":"OR"},
+    {"type":"OR","id":"dev35","x":1184,"y":120,"label":"OR"},
+    {"type":"出力(ランプ)","id":"dev36","x":1280,"y":184,"label":"出力3"},
+    {"type":"出力(ランプ)","id":"dev37","x":1280,"y":320,"label":"出力2"},
+    {"type":"出力(ランプ)","id":"dev38","x":1280,"y":448,"label":"出力1"},
+    {"type":"出力(ランプ)","id":"dev39","x":1280,"y":32,"label":"出力4"},
+    {"type":"入力(スイッチ)","id":"dev40","x":192,"y":448,"label":"入力B1","state":{"on":false}},
+    {"type":"入力(スイッチ)","id":"dev41","x":32,"y":256,"label":"入力A2","state":{"on":false}}
+  ],
+  "connectors":[
+    {"from":"dev0.in0","to":"dev19.out0"},
+    {"from":"dev0.in1","to":"dev18.out0"},
+    {"from":"dev1.in0","to":"dev19.out0"},
+    {"from":"dev1.in1","to":"dev18.out0"},
+    {"from":"dev2.in0","to":"dev9.out0"},
+    {"from":"dev2.in1","to":"dev4.out0"},
+    {"from":"dev3.in0","to":"dev9.out0"},
+    {"from":"dev3.in1","to":"dev4.out0"},
+    {"from":"dev4.in0","to":"dev1.out0"},
+    {"from":"dev5.in0","to":"dev1.out0"},
+    {"from":"dev6.in0","to":"dev5.out0"},
+    {"from":"dev6.in1","to":"dev0.out0"},
+    {"from":"dev7.in0","to":"dev3.out0"},
+    {"from":"dev8.in0","to":"dev7.out0"},
+    {"from":"dev8.in1","to":"dev2.out0"},
+    {"from":"dev9.in0","to":"dev26.out0"},
+    {"from":"dev10.in0","to":"dev15.out0"},
+    {"from":"dev10.in1","to":"dev14.out0"},
+    {"from":"dev11.in0","to":"dev15.out0"},
+    {"from":"dev11.in1","to":"dev14.out0"},
+    {"from":"dev12.in0","to":"dev10.out0"},
+    {"from":"dev13.in0","to":"dev12.out0"},
+    {"from":"dev13.in1","to":"dev11.out0"},
+    {"from":"dev14.in0","to":"dev8.out0"},
+    {"from":"dev15.in0","to":"dev41.out0"},
+    {"from":"dev16.in0","to":"dev34.out0"},
+    {"from":"dev17.in0","to":"dev27.out0"},
+    {"from":"dev18.in0","to":"dev40.out0"},
+    {"from":"dev19.in0","to":"dev24.out0"},
+    {"from":"dev20.in0","to":"dev17.out0"},
+    {"from":"dev20.in1","to":"dev16.out0"},
+    {"from":"dev21.in0","to":"dev17.out0"},
+    {"from":"dev21.in1","to":"dev16.out0"},
+    {"from":"dev22.in0","to":"dev20.out0"},
+    {"from":"dev23.in0","to":"dev22.out0"},
+    {"from":"dev23.in1","to":"dev21.out0"},
+    {"from":"dev28.in0","to":"dev30.out0"},
+    {"from":"dev28.in1","to":"dev29.out0"},
+    {"from":"dev29.in0","to":"dev23.out0"},
+    {"from":"dev30.in0","to":"dev25.out0"},
+    {"from":"dev31.in0","to":"dev32.out0"},
+    {"from":"dev32.in0","to":"dev30.out0"},
+    {"from":"dev32.in1","to":"dev29.out0"},
+    {"from":"dev33.in0","to":"dev31.out0"},
+    {"from":"dev33.in1","to":"dev28.out0"},
+    {"from":"dev34.in0","to":"dev10.out0"},
+    {"from":"dev34.in1","to":"dev3.out0"},
+    {"from":"dev35.in0","to":"dev32.out0"},
+    {"from":"dev35.in1","to":"dev20.out0"},
+    {"from":"dev36.in0","to":"dev33.out0"},
+    {"from":"dev37.in0","to":"dev13.out0"},
+    {"from":"dev38.in0","to":"dev6.out0"},
+    {"from":"dev39.in0","to":"dev35.out0"}
+  ]
+}
+    `);
+  });
+
+  // load default (just specifies circuit size).
+  setCircuitData(`
+{
+  "width":1500,
+  "height":600,
+  "showToolbox":true,
+  "toolbox":[
+    {"type":"入力(スイッチ)"},
+    {"type":"出力(ランプ)"},
+    {"type":"AND"},
+    {"type":"OR"},
+    {"type":"NOT"},
+    {"type":"分岐"}
+  ]
+}
+  `);
+});
+    </script>
+    <title>論理回路を動かしてみよう！｜情報Ⅰ</title>
+  </head>
+  <body>
+    <div id="mySimcir"></div>
+    <button id="empty">空っぽ</button>
+    <button id="and">AND回路</button>
+    <button id="or">OR回路</button>
+    <button id="not">NOT回路</button>
+    <button id="nand1">不思議な回路①</button>
+    <button id="nand2">不思議な回路②</button>
+    <button id="halfAdder">大きな回路①</button>
+    <button id="fullAdder">大きな回路②</button>
+  </body>
+</html>
